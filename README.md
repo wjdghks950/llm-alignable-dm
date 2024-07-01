@@ -20,6 +20,11 @@ cd align-system
 pip install -e .
 ```
 
+## TODO List
+- [ ] Implement the `__call__` method for [CodeActAgentADM](https://github.com/wjdghks950/align-system/blob/3446b221867c4e35e349dac8e03e2640b5ad1245/align_system/algorithms/codeact_agent_adm.py#L127).
+- [ ] `CodeActAgentADM` is being called by [generate_outputs(...)](https://github.com/wjdghks950/align-system/blob/3446b221867c4e35e349dac8e03e2640b5ad1245/align_system/evaluation/adm_evaluator.py#L3) method in [run_evaluator.py](https://github.com/wjdghks950/llm-alignable-dm/blob/996e9be8c45b58305b4b0f187c7306dde0b667da/scripts/run_evaluator.py#L247).
+- [ ] For the `CodeActAgentADM` configs, refer to [configs/codeact-agent](https://github.com/wjdghks950/llm-alignable-dm/tree/main/configs/codeact-agent).
+
 
 ## Overview
 To run a particular LLM-based decision-maker, use the `run_evaluator.py` file in the `scripts/` directory. This script takes as input a particular config file (found in the `configs/` directory) and a GPU ID:
