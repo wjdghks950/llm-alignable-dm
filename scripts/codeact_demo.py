@@ -55,7 +55,10 @@ class Generator:
             stop=stop_sequences,
             api_base=self.openai_base_url,
         )
-        return completion.choices[0].message.content
+        content = completion.choices[0].message.content
+        if "<execute>" in content and "</execute>" not in content:
+            content += "</execute>"
+        return content
 
 
 SYSTEM_MESSAGE = """A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.
@@ -103,7 +106,7 @@ class Agent:
             **kwargs,
         }
         self.generator = generator
-        self.code_executor = code_executor
+        self.code_executor: ClientJupyterKernel = code_executor
         self.conv_id = conv_id
         # print the messages
         for message in self.messages:
@@ -119,7 +122,7 @@ class Agent:
         )
         print(colored(message["content"], self.COLOR_MAP[message["role"]]))
 
-    def handle_execution(self, completion: str, code_executor):
+    def handle_execution(self, completion: str, code_executor: ClientJupyterKernel):
         # use regex to capture the code
         code = re.search(r"<execute>(.*)</execute>", completion, re.DOTALL)
         # check if the code is valid
