@@ -20,6 +20,25 @@ cd align-system
 pip install -e .
 ```
 
+Other dependencies:
+```bash
+pip install vllm
+```
+
+Start CodeAct:
+
+```bash
+# start model serving at port 8080
+export CUDA_VISIBLE_DEVICES=0,1
+./scripts/start_vllm.sh /shared/nas2/shared/llms/CodeActAgent-Mistral-7b-v0.1/
+
+# start code exec server at 8081
+./scripts/code_execution/start_jupyter_server.sh 8081
+
+# then play around with interactive demo to make sure everything works
+./scripts/run_codeact_demo.sh
+```
+
 ## TODO List
 - [ ] Implement the `__call__` method for [CodeActAgentADM](https://github.com/wjdghks950/align-system/blob/3446b221867c4e35e349dac8e03e2640b5ad1245/align_system/algorithms/codeact_agent_adm.py#L127).
 - [ ] `CodeActAgentADM` is being called by [generate_outputs(...)](https://github.com/wjdghks950/align-system/blob/3446b221867c4e35e349dac8e03e2640b5ad1245/align_system/evaluation/adm_evaluator.py#L3) method in [run_evaluator.py](https://github.com/wjdghks950/llm-alignable-dm/blob/996e9be8c45b58305b4b0f187c7306dde0b667da/scripts/run_evaluator.py#L247).
